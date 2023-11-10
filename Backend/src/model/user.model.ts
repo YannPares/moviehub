@@ -4,12 +4,13 @@ interface IUserDocument extends Document{
     name: string;
     email: string;
     password: string;
-    movie?: string[];
+    avatar?: string;
+    movies?: string[];
     createdAt?: Date;
     updatedAt?: Date;
 }
 
-const USerSchema = new Schema<IUserDocument>({
+const UserSchema = new Schema<IUserDocument>({
     name: {
         type: String,
         required: [true, 'Name is required']
@@ -23,11 +24,12 @@ const USerSchema = new Schema<IUserDocument>({
         type: String,
         required: [true, "Password is required"]
     },
-    movie: [{ type:Schema.Types.ObjectId, ref: 'Movies'}]
+    avatar: String,
+    movies: [{type: Schema.Types.ObjectId, ref: 'Movie'}]
 },
-    {timestamps: true, versionKey: true}
+    {timestamps: true, versionKey: false}
 )
 
-const UserModel = model<IUserDocument>('User', USerSchema);
+const UserModel = model<IUserDocument>('User', UserSchema);
 
 export default UserModel
