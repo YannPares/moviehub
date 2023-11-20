@@ -1,0 +1,17 @@
+.card {
+  width: 20%;
+  position: absolute;
+  top: 30em;
+  height: 20%;
+  backdrop-filter: blur(19px) saturate(150%);
+  background-color: rgba(224, 224, 224, 0.295);
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  background-size: 100%;
+  box-shadow: 0px 14px 30px -7px rgba(0,0,0,0.75);
+}
+
+.container-card {
+  display: flex;
+  justify-content: center;
+}

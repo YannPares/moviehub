@@ -1,52 +1,19 @@
-// import { useState } from 'react'
-
-import { useState } from 'react'
 import './App.css'
+import { HelmetProvider } from 'react-helmet-async';
+import RoutesComponent from './routes/PublicRoutes.routes';
+import Background from './components/Background/Background';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const helmetContext = {};
 
   return (
     <>
-    <html className='main-background'>
-      <header>
-        <h1>Header</h1>
-      </header>
-      <nav>
-        <ul>
-          <li>
-            <a href="#">Home</a>
-          </li>
-        </ul>
-      </nav>
-      <main >
-        <h1>Main</h1>
-      </main>
-
-      <section>
-        <h2>Section</h2>
-      </section>
-
-      <article>
-        <h3>Article</h3>
-      </article>
-
-      <aside>
-
-        <h4>Aside</h4>
-      </aside>
-      <canvas>
-        <h5>Canvas</h5>
-      </canvas>
-      <footer>
-        <h6>Footer</h6>
-      </footer>
-      </html>
+          <HelmetProvider context={helmetContext}>
+            <Background />
+            <RoutesComponent />
+          </HelmetProvider> 
     </>
-
   )
-
-
 }
 
 export default App

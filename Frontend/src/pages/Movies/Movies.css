@@ -1,0 +1,30 @@
+.display-panel-content {
+    padding: 35px 75px;
+    display: flex;
+    
+    gap: 1rem;
+    justify-content: center;
+}
+.display-panel {
+    margin: 0 10%;
+    width: 80%;
+    position: absolute;
+    top: 15em;
+    height: 50%;
+    
+    background-color: rgba(224, 224, 224, 0.295);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    background-size: 100%;
+    box-shadow: 0px 14px 30px -7px rgba(0,0,0,0.75);
+}
+.movies-swiper {
+    display: flex;
+    gap: 5%;
+}
+.movie{
+    text-align: center;
+    border: solid black 4px;
+    width: 20rem;
+    height: 25rem;
+}
