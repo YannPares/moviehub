@@ -4,9 +4,8 @@
 
 ## Alternated branchs on gitHub to different backend dependencies to connect to API: ##
 
-    *mongoose
-    *prisma
-    
+    *Devmongoose with mongoose ODM
+    *Main branch with prisma ORM
 
 
 ## Get started
@@ -15,9 +14,10 @@ To run, you just have MongoDB installed and running, and NodeJS installed.
 
 * Start MongoDB
 * Clone the repo
-* `npm install` to install API dependencies and `npm start` to start the API
-* Open a new terminal and navigate to the `client` directory, `npm install` to setup the Angular dependencies, and `npm start` to start the local development server
-* Open http://localhost:4200 to see the application
+* `pnpm install` to install API dependencies and `pnpm start` to start the API
+* Open a new terminal and navigate to the `frontend` directory, `pnpm install` to setup the React dependencies, and `pnpm start` to start the local development server
+* Open http://localhost:5175/ to see frontend
+* Open http://localhost:4001 to see the API console.log
 
 ## Detailed setup & deployment documentation
 
@@ -40,7 +40,7 @@ devDependencies:
 ### Run on your local machine
  
 > ### Prerequisite
-> You should install [Mongo DB](https://docs.mongodb.com/manual/installation), [npm and node.js](https://www.npmjs.com/get-npm) on your local machine.
+> You should install [Mongo DB](https://docs.mongodb.com/manual/installation), [pnpm and node.js](https://www.pnpmjs.com/get-pnpm) on your local machine.
 
 
 After cloning the project, first you need to run below commands on your terminal to activate your local Mongo DB:
@@ -52,17 +52,17 @@ In another tab:
 $ mongosh
 ```
 
-Then run "npm start" in the mean directory of the project if your local server is connected to your local mongodb, then you will run "npm start" in the client subfolder to compile your client side.
+Then run "pnpm start" in the mean directory of the project if your local server is connected to your local mongodb, then you will run "pnpm start" in the client subfolder to compile your client side.
 ```sh
-$ npm start
+$ pnpm start
 ```
 In another tab:
 ```sh
-$ cd client 
-$ npm start
+$ cd frontend 
+$ pnpm start
 ```
 
-Run -> [http://localhost:3001](http://localhost:3001/)
+Run -> [http://localhost:5175/](http://localhost:5175//)
 
 
 ### Deployment
@@ -77,8 +77,10 @@ Run -> [http://localhost:3001](http://localhost:3001/)
 After applying your changes in client-side, which written in React-Vite framework, you must be able to deploy it successfully. You can find client-side files in /frontend directory. 
 
 ```sh
-$ pnpm run dev'
+$ pnpm run dev
 ```
 
 
 ### Author and Contributors
+
+Ian Parés Morel
