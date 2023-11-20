@@ -16,26 +16,15 @@ To run, you just have MongoDB installed and running, and NodeJS installed.
 * Clone the repo
 * `pnpm install` to install API dependencies and `pnpm start` to start the API
 * Open a new terminal and navigate to the `frontend` directory, `pnpm install` to setup the React dependencies, and `pnpm start` to start the local development server
-* Open http://localhost:5175/ to see frontend
-* Open http://localhost:4001 to see the API console.log
+* Open http://localhost:5173/ to see frontend
+* Open http://localhost:3001 to see the API console.log
+
+*** 
+If there's any issue, check the env.development file and configure the host or navigate directly to 4001. Adjusting the host configuration within the env.development file might resolve the specific issue. If that doesn't work, directly accessing the 4001 address might provide further insights into what's causing the problem.
 
 ## Detailed setup & deployment documentation
 
-### Introduction
 
-
-dependencies:
-+ express 4.18.2        
-+ mongoose 8.0.0        
-
-devDependencies:        
-+ @types/express 4.17.20
-+ @types/node 20.8.10   
-+ dotenv 16.3.1
-+ nodemon 3.0.1
-+ rimraf 5.0.5
-+ ts-node 10.9.1
-+ typescript 5.2.2
 
 ### Run on your local machine
  
@@ -62,14 +51,12 @@ $ cd frontend
 $ pnpm start
 ```
 
-Run -> [http://localhost:5175/](http://localhost:5175//)
+Run -> [http://localhost:5173/](http://localhost:5173//)
 
 
 ### Deployment
 
 
-
-#### Configuration
 
 
 #### Deployment client-side (REACT)

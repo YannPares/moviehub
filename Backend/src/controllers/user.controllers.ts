@@ -1,64 +1,122 @@
-import {Request, Response} from 'express'
-import UserModel from '../model/user.model'
+import {Request, Response} from 'express';
+import prisma from "../db/client";
+import UserModel from "../model/user.model";
 
-export const getAllUsers = (req: Request, res:Response) => {
-    res.status(200).send('Get All User')
-}
-export const getAllUsersRegistered = (req: Request, res:Response) => {
-    res.status(200).send('Get All User Registered')
-}
-
-export const createUser = async (req: Request, res:Response) => {
-    const { name, email, password } = req.body;
+export const createUser = async (req: Request, res: Response) => {
+    const {name, email, password} = req.body;
 
     try {
-        if (!name || !email || !password) throw new Error('Missing Fields');
 
-        const newUser = await UserModel.create({name, email, password})
-        res.status(201).json(newUser)
+        if (!name || !email || !password) {
+            res.status(400).json({error: "Missing required fields"});
+            return;
+        }
+
+        const newUser = await prisma.user.create({
+            data: {
+                name,
+                email,
+                password
+
+            }
+        })
+
+        res.status(201).json(newUser);
 
     } catch (error) {
-        res.status(500).json(error)
+        console.log(error)
+        res.status(500).json(error);
     }
+}
 
-    // res.status(200).send('POST: Create user')
+export const getAllUsers = async (req: Request, res: Response) => {
+    try {
+
+        const allUsers = await prisma.user.findMany()
+
+        res.status(201).json(allUsers);
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
 }
 
 export const getUserById = async (req: Request, res: Response) => {
     const {userId} = req.params;
-    try{
-        const user = await UserModel.findById({ _id: userId}).populate('movies')
+    try {
 
-        res.status(200).json(user)
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            },
+            include: {
+                movies: {
+                    include: {
+                        // genres: true
+                    }
+                }
+            }
+
+        })
+        console.log(user)
+        res.status(201).json(user);
     } catch (error) {
-        res.status(500).json(error)
+        console.log(error)
+        res.status(500).json(error);
     }
 }
 
-export const updateUser = async (req: Request, res: Response) => {
+export const getUserByIdMongoose = async (req: Request, res: Response) => {
     const {userId} = req.params;
-    const {name, email, avatar } = req.body;
-    try{
-        const user = await UserModel.findByIdAndUpdate({ _id: userId},
-        {
-            $set: { name: name, email: email, avatar: avatar}
-        }
-        )
-     
+    try {
 
-        res.status(200).json(user)
+        const user = await UserModel.findById(userId).populate({
+            path: "movies",
+            populate: {
+                path: "genres"
+            }
+        })
+
+        res.status(201).json(user);
     } catch (error) {
-        res.status(500).json(error)
+        console.log(error)
+        res.status(500).json(error);
     }
 }
 
+export const updateUserName = async (req: Request, res: Response) => {
+    const {userId} = req.params;
+    const {name, email} = req.body;
+    try {
 
-export const deleteUser = (req: Request, res:Response) => {
-    
-    const {
-        params: {userId }
-    } = req;
-    if(!userId) res.status(500).send('Not Found')
-    
-    res.status(200).send('Delete: Delete user')
+        const user = await prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: {
+                name,
+                email
+            }
+        })
+
+        res.status(201).json(user);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+export const deleteUserByID = async (req: Request, res: Response) => {
+    const {userId} = req.params;
+    try {
+
+        await prisma.user.delete({
+            where: {
+                id: userId
+            }
+        })
+
+        res.status(204).json();
+    } catch (error) {
+        res.status(500).json(error);
+    }
 }

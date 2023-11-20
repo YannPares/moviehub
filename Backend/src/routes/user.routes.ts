@@ -1,19 +1,22 @@
-import { Router} from 'express';
+import {Router} from "express";
+import {createUser, deleteUserByID, getAllUsers, getUserById, updateUserName} from "../controllers/user.controllers";
 
-import { deleteUser, getAllUsers, getAllUsersRegistered, createUser, updateUser } from '../controllers/user.controllers';
+const UserRouter = Router()
 
-import { check } from '../middleware/check.middleware';
-const userRoutes = Router();
+UserRouter
+    .post("/", createUser)
 
-userRoutes.get('/' , getAllUsers)
+    .get("/", getAllUsers)
 
-userRoutes.get('/Registered' , getAllUsersRegistered)
+    .get("/:userId", getUserById)
 
-userRoutes.delete('/:userId' , deleteUser)
+    .put("/:userId", updateUserName)
 
-userRoutes.post('/' ,check,  createUser)
+    .delete("/:userId", deleteUserByID)
 
-userRoutes.patch('/:userId', updateUser)
+    .all("*", (req, res) => {
+        res.status(405).json({message: "Method not allowed"})
+    });
 
 
-export default  userRoutes
+export default UserRouter

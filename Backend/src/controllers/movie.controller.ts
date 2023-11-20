@@ -1,22 +1,34 @@
-import { Request, Response } from "express";
-import MovieModel from "../model/movie.model";
+import {Request, Response} from 'express';
+import prisma from "../db/client";
 import UserModel from "../model/user.model";
 
+
 export const createMovie = async (req: Request, res: Response) => {
-    const {name} = req.body;
-    const {userId} = req.params;
-
+    const {title, year, genres} = req.body
+    const {userID} = req.params
+    console.log(genres)
     try {
-        const movie = await MovieModel.create({ name, userId});
-        
-        await UserModel.findByIdAndUpdate(
-            {_id: userId}, 
-            {$push: {movies: movie._id}})
 
-        res.status(201).json(movie);
-        
+        const newMovie = await prisma.movies.create({
+            data: {
+                title,
+                year,
+                // genres: { 
+                    // connect: genres.map((genre: string) => ({id: genre}))
+                // },
+                User: {
+                    connect: {
+                        id: userID
+                    }
+                },
+            }
+        })
+
+
+        res.status(201).send(newMovie)
+
     } catch (error) {
-        res.status(500).json(error)
-
+        console.log(error)
+        res.status(500).send(error)
     }
 }
